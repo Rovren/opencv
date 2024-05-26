@@ -96,8 +96,8 @@ namespace cv
         void setNOctaveLayers(int octaveLayers_) CV_OVERRIDE { sublevels = octaveLayers_; }
         int getNOctaveLayers() const CV_OVERRIDE { return sublevels; }
 
-        void setDiffusivity(KAZE::DiffusivityType diff_) CV_OVERRIDE{ diffusivity = diff_; }
-        KAZE::DiffusivityType getDiffusivity() const CV_OVERRIDE{ return diffusivity; }
+        void setDiffusivity(int diff_) CV_OVERRIDE{ diffusivity = static_cast<KAZE::DiffusivityType (diff_); }
+        int getDiffusivity() const CV_OVERRIDE{ return static_cast<int> diffusivity; }
 
         void setMaxPoints(int max_points_) CV_OVERRIDE { max_points = max_points_; }
         int getMaxPoints() const CV_OVERRIDE { return max_points; }
@@ -262,10 +262,10 @@ namespace cv
     Ptr<AKAZE> AKAZE::create(DescriptorType descriptor_type,
                              int descriptor_size, int descriptor_channels,
                              float threshold, int octaves,
-                             int sublevels, KAZE::DiffusivityType diffusivity, int max_points)
+                             int sublevels, int diffusivity, int max_points)
     {
         return makePtr<AKAZE_Impl>(descriptor_type, descriptor_size, descriptor_channels,
-                                   threshold, octaves, sublevels, diffusivity, max_points);
+                                   threshold, octaves, sublevels, static_cast<KAZE::DiffusivityType>(diffusivity), max_points);
     }
 
     String AKAZE::getDefaultName() const

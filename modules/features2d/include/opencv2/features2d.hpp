@@ -896,7 +896,7 @@ public:
     CV_WRAP static Ptr<AKAZE> create(AKAZE::DescriptorType descriptor_type = AKAZE::DESCRIPTOR_MLDB,
                                      int descriptor_size = 0, int descriptor_channels = 3,
                                      float threshold = 0.001f, int nOctaves = 4,
-                                     int nOctaveLayers = 4, KAZE::DiffusivityType diffusivity = KAZE::DIFF_PM_G2,
+                                     int nOctaveLayers = 4, int diffusivity = 1,
                                      int max_points = -1);
 
     CV_WRAP virtual void setDescriptorType(AKAZE::DescriptorType dtype) = 0;
@@ -917,8 +917,8 @@ public:
     CV_WRAP virtual void setNOctaveLayers(int octaveLayers) = 0;
     CV_WRAP virtual int getNOctaveLayers() const = 0;
 
-    CV_WRAP virtual void setDiffusivity(KAZE::DiffusivityType diff) = 0;
-    CV_WRAP virtual KAZE::DiffusivityType getDiffusivity() const = 0;
+    CV_WRAP virtual void setDiffusivity(int diff) = 0;
+    CV_WRAP virtual int getDiffusivity() const = 0;
     CV_WRAP virtual String getDefaultName() const CV_OVERRIDE;
 
     CV_WRAP virtual void setMaxPoints(int max_points) = 0;
