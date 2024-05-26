@@ -78,8 +78,8 @@ namespace cv
 
         }
 
-        void setDescriptorType(DescriptorType dtype) CV_OVERRIDE{ descriptor = dtype; }
-        DescriptorType getDescriptorType() const CV_OVERRIDE{ return descriptor; }
+        void setDescriptorType(int dtype) CV_OVERRIDE{ descriptor = static_cast<DescriptorType> (dtype); }
+        int getDescriptorType() const CV_OVERRIDE{ return static_cast<int> (descriptor); }
 
         void setDescriptorSize(int dsize) CV_OVERRIDE { descriptor_size = dsize; }
         int getDescriptorSize() const CV_OVERRIDE { return descriptor_size; }
@@ -96,8 +96,8 @@ namespace cv
         void setNOctaveLayers(int octaveLayers_) CV_OVERRIDE { sublevels = octaveLayers_; }
         int getNOctaveLayers() const CV_OVERRIDE { return sublevels; }
 
-        void setDiffusivity(int diff_) CV_OVERRIDE{ diffusivity = static_cast<KAZE::DiffusivityType (diff_); }
-        int getDiffusivity() const CV_OVERRIDE{ return static_cast<int> diffusivity; }
+        void setDiffusivity(int diff_) CV_OVERRIDE{ diffusivity = static_cast<KAZE::DiffusivityType> (diff_); }
+        int getDiffusivity() const CV_OVERRIDE{ return static_cast<int> (diffusivity); }
 
         void setMaxPoints(int max_points_) CV_OVERRIDE { max_points = max_points_; }
         int getMaxPoints() const CV_OVERRIDE { return max_points; }
@@ -259,12 +259,12 @@ namespace cv
         int max_points;
     };
 
-    Ptr<AKAZE> AKAZE::create(DescriptorType descriptor_type,
+    Ptr<AKAZE> AKAZE::create(int descriptor_type,
                              int descriptor_size, int descriptor_channels,
                              float threshold, int octaves,
                              int sublevels, int diffusivity, int max_points)
     {
-        return makePtr<AKAZE_Impl>(descriptor_type, descriptor_size, descriptor_channels,
+        return makePtr<AKAZE_Impl>(static_cast<DescriptorType> (descriptor_type), descriptor_size, descriptor_channels,
                                    threshold, octaves, sublevels, static_cast<KAZE::DiffusivityType>(diffusivity), max_points);
     }
 

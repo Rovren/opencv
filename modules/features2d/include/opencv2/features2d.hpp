@@ -458,7 +458,7 @@ public:
     @param fastThreshold the fast threshold
      */
     CV_WRAP static Ptr<ORB> create(int nfeatures=500, float scaleFactor=1.2f, int nlevels=8, int edgeThreshold=31,
-        int firstLevel=0, int WTA_K=2, ORB::ScoreType scoreType=ORB::HARRIS_SCORE, int patchSize=31, int fastThreshold=20);
+        int firstLevel=0, int WTA_K=2, int scoreType=0, int patchSize=31, int fastThreshold=20);
 
     CV_WRAP virtual void setMaxFeatures(int maxFeatures) = 0;
     CV_WRAP virtual int getMaxFeatures() const = 0;
@@ -478,8 +478,8 @@ public:
     CV_WRAP virtual void setWTA_K(int wta_k) = 0;
     CV_WRAP virtual int getWTA_K() const = 0;
 
-    CV_WRAP virtual void setScoreType(ORB::ScoreType scoreType) = 0;
-    CV_WRAP virtual ORB::ScoreType getScoreType() const = 0;
+    CV_WRAP virtual void setScoreType(int scoreType) = 0;
+    CV_WRAP virtual int getScoreType() const = 0;
 
     CV_WRAP virtual void setPatchSize(int patchSize) = 0;
     CV_WRAP virtual int getPatchSize() const = 0;
@@ -893,14 +893,14 @@ public:
     more features, then the features with highest response are returned.
     Negative value means no limitation.
      */
-    CV_WRAP static Ptr<AKAZE> create(AKAZE::DescriptorType descriptor_type = AKAZE::DESCRIPTOR_MLDB,
+    CV_WRAP static Ptr<AKAZE> create(int descriptor_type = 5,
                                      int descriptor_size = 0, int descriptor_channels = 3,
                                      float threshold = 0.001f, int nOctaves = 4,
                                      int nOctaveLayers = 4, int diffusivity = 1,
                                      int max_points = -1);
 
-    CV_WRAP virtual void setDescriptorType(AKAZE::DescriptorType dtype) = 0;
-    CV_WRAP virtual AKAZE::DescriptorType getDescriptorType() const = 0;
+    CV_WRAP virtual void setDescriptorType(int dtype) = 0;
+    CV_WRAP virtual int getDescriptorType() const = 0;
 
     CV_WRAP virtual void setDescriptorSize(int dsize) = 0;
     CV_WRAP virtual int getDescriptorSize() const = 0;
