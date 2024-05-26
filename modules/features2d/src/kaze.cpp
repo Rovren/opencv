@@ -84,8 +84,8 @@ namespace cv
         void setNOctaveLayers(int octaveLayers_) CV_OVERRIDE { sublevels = octaveLayers_; }
         int getNOctaveLayers() const CV_OVERRIDE { return sublevels; }
 
-        void setDiffusivity(KAZE::DiffusivityType diff_) CV_OVERRIDE{ diffusivity = diff_; }
-        KAZE::DiffusivityType getDiffusivity() const CV_OVERRIDE{ return diffusivity; }
+        void setDiffusivity(int diff_) CV_OVERRIDE{ diffusivity = static_cast<KAZE::DiffusivityType>(diff_); }
+        int getDiffusivity() const CV_OVERRIDE{ return static_cast<int>(diffusivity); }
 
         // returns the descriptor size in bytes
         int descriptorSize() const CV_OVERRIDE
@@ -200,10 +200,11 @@ namespace cv
     Ptr<KAZE> KAZE::create(bool extended, bool upright,
                             float threshold,
                             int octaves, int sublevels,
-                            KAZE::DiffusivityType diffusivity)
+                            int diffusivity)
     {
-        return makePtr<KAZE_Impl>(extended, upright, threshold, octaves, sublevels, diffusivity);
+        return makePtr<KAZE_Impl>(extended, upright, threshold, octaves, sublevels, static_cast<KAZE::DiffusivityType>(diffusivity));
     }
+
 
     String KAZE::getDefaultName() const
     {
